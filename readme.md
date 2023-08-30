@@ -1,58 +1,68 @@
-Certainly! Here's a basic `README.md` for the Cards project:
 
-```markdown
-# Cards
+# CardManager Application
 
-## Description
-
-Cards is a RESTful web service designed for managing tasks in the form of cards. Users can create, manage, update, and delete tasks, with additional functionality based on user roles.
+CardManager is a Spring Boot based RESTful API that allows users to manage tasks in the form of cards. It provides user authentication, card management features, and role-based access.
 
 ## Features
+- **User Authentication**: Users can log in using their email and password.
+- **Role-Based Access**: Users can be `Members` or `Admins`.
+    - `Members`: Can only access and manage cards they've created.
+    - `Admins`: Can access and manage all cards.
+- **Card Management**: Users can create, read, update, and delete cards.
+    - Card information includes: Name (mandatory), Description, Color, and Status.
+    - Cards can have one of the three statuses: `To Do`, `In Progress`, and `Done`.
 
-- User authentication via JSON Web Tokens (JWT).
-- Members can access and manage cards they created.
-- Admins have complete access to all cards.
-- Search functionality to filter cards based on name, color, status, and date of creation.
-- Pagination and sorting capabilities.
-  
-## Getting Started
+## API Documentation
+Detailed API documentation is available through Swagger UI once the application is running. Access it at:
+```
+http://localhost:8080/swagger-ui/
+```
 
-### Prerequisites
+## Setup and Installation
 
-- Java 11
+### Prerequisites:
+- Java 11+
 - Maven
 - MySQL
 
-### Installation
+### Steps:
 
-1. Clone the repository:
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/ortupik/cards
+   ```
+
+2. **Configure Database**: Update `application.properties` with your MySQL credentials.
+
+3. **Build the Project**:
+   ```bash
+   mvn clean install
+   ```
+
+4. **Run the Application**:
+   ```bash
+   mvn spring-boot:run
+   ```
+
+## Running Tests
+Execute the following command:
 ```bash
-git clone https://github.com/ortupik/Cards.git
+mvn test
 ```
 
-2. Navigate to the project directory:
-```bash
-cd Cards
-```
+## Technology Stack
+- **Spring Boot**: Framework for building the RESTful API.
+- **Spring Data JPA**: For data persistence.
+- **MySQL**: Database for storing user and card data.
+- **Spring Security & JWT**: For authentication and authorization.
+- **Swagger**: API documentation.
+- **JUnit & Mockito**: For unit testing.
 
-3. Update `application.properties` with your MySQL configurations.
-
-4. Build and run the application:
-```bash
-mvn clean install
-mvn spring-boot:run
-```
-
-## API Documentation
-
-(If you have included Swagger or another API documentation tool, mention it here.)
-For detailed API documentation, navigate to `http://localhost:8080/swagger-ui.html` after starting the application.
-
-## Contributing
-
-Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for more information.
+## Contribution
+Feel free to fork this repository and submit pull requests. All contributions are welcome.
 
 ## License
+MIT License. See `LICENSE` for more information.
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE.md) for details.
+---
 
