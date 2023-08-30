@@ -57,19 +57,7 @@ public class CardServiceImpl implements CardService {
         }
     }
 
-    @Override
-    public List<CardEntity> getCardsForUser(String userEmail) {
-        UserEntity userEntity = userRepository.findByEmail(userEmail);
-        if (userEntity == null) {
-            throw new ResourceNotFoundException("User not found with email: " + userEmail);
-        }
-        
-        if (UserEntity.UserRole.ADMIN.equals(userEntity.getRole())) {
-            return cardRepository.findAll();
-        } else {
-            return cardRepository.findByUser(userEntity);
-        }
-    }
+    
 
     @Override
     public CardEntity updateCard(Long cardId, CardRequest cardRequest) {
