@@ -3,7 +3,7 @@ package com.logicea.cards.repository;
 import com.logicea.cards.model.CardEntity;
 import com.logicea.cards.model.CardEntity.CardStatus;
 import com.logicea.cards.model.UserEntity;
-
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -44,5 +44,6 @@ public interface CardRepository extends JpaRepository<CardEntity, Long> {
            "(COALESCE(:color, null) IS NULL OR c.color = :color) AND " +
            "(COALESCE(:status, null) IS NULL OR c.status = :status)")
     Page<CardEntity> searchAllCards(String name, String color, CardStatus status, Pageable pageable);
+
     // Other query methods related to Card can be added here.
 }

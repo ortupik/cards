@@ -5,4 +5,5 @@ public class LoginRequest {
     private String password;
 
     // Getters, setters, and default constructor
+    
 }
