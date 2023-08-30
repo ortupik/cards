@@ -8,8 +8,12 @@ import com.logicea.cards.repository.CardRepository;
 import com.logicea.cards.repository.UserRepository;
 import com.logicea.cards.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 @Service
@@ -35,6 +39,22 @@ public class CardServiceImpl implements CardService {
         cardEntity.setUser(userEntity);
         
         return cardRepository.save(cardEntity);
+    }
+
+    public Page<CardEntity> searchCardsForUser(String userEmail, String name, String color, 
+            CardEntity.CardStatus status, Integer page, Integer size) {
+        UserEntity userEntity = userRepository.findByEmail(userEmail);
+        if (userEntity == null) {
+            throw new ResourceNotFoundException("User not found with email: " + userEmail);
+        }
+
+        Pageable pageable = PageRequest.of(page == null ? 0 : page, size == null ? 50 : size);
+        
+        if (UserEntity.UserRole.ADMIN.equals(userEntity.getRole())) {
+            return cardRepository.searchAllCards(name, color, status, pageable);
+        } else {
+            return cardRepository.searchByUser(userEntity, name, color, status, pageable);
+        }
     }
 
     @Override
